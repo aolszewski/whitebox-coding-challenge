@@ -1,0 +1,23 @@
+{
+  "name": "exporter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-polyfill": "^6.26.0",
+    "mysql2": "^2.1.0"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "eslint": "^7.1.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-json": "^2.1.1"
+  },
+  "scripts": {
+    "export": "",
+    "import": "node --require babel-core/register importer.js"
+  }
+}

@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  exporter:
+    container_name: exporter
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "30000:30000"
+    volumes:
+      - .:/src
+    networks:
+      thenetwork:
+        aliases:
+          - "exporter"
+  database:
+    container_name: exporter-mysql
+    build:
+      context: .
+      dockerfile: Dockerfile-mysql
+    ports:
+      - "3006:3006"
+    networks:
+      thenetwork:
+        aliases:
+          - "exporter-mysql"
+
+networks:
+  thenetwork:
+    name: thenetwork
+    driver: bridge
