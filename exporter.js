@@ -28,7 +28,7 @@ const connection = mysql.createConnection({
   host: 'exporter-mysql',
   user: 'code',
   password: 'password',
-  database: 'code_challenge'
+  database: 'code_challenge',
 });
 const query = promisify(connection.query).bind(connection);
 
@@ -59,7 +59,7 @@ async function populateWorksheet(workbook, worksheetName, locale, shippingSpeed)
     and client_id = ?
     and locale = ?
     and shipping_speed = ?
-  `, [CLIENT_ID , locale, shippingSpeed]);
+  `, [CLIENT_ID, locale, shippingSpeed]);
 
   const header = ['Start Weight', 'End Weight'];
   zones.forEach((zone) => {
@@ -88,7 +88,7 @@ async function populateWorksheet(workbook, worksheetName, locale, shippingSpeed)
     });
 
     worksheet.addRow(excelRow);
-  })
+  });
 
   return workbook;
 }
@@ -96,9 +96,28 @@ async function populateWorksheet(workbook, worksheetName, locale, shippingSpeed)
 const workbook = createWorkbook();
 
 populateWorksheet(workbook, SHEET_DOMESTIC_STANDARD_RATES, LOCALE_DOMESTIC, SHIPPING_STANDARD)
-  .then(() => populateWorksheet(workbook, SHEET_DOMESTIC_EXPEDITED_RATES, LOCALE_DOMESTIC, SHIPPING_EXPEDITED))
-  .then(() => populateWorksheet(workbook, SHEET_DOMESTIC_NEXT_DAY_RATES, LOCALE_DOMESTIC, SHIPPING_NEXT_DAY))
-  .then(() => populateWorksheet(workbook, SHEET_INTERNATIONAL_ECONOMIC_RATES, LOCALE_INTERNATIONAL, SHIPPING_INTERNATIONAL_ECONOMY))
-  .then(() => populateWorksheet(workbook, SHEET_INTERNATIONAL_EXPEDITED_RATES, LOCALE_INTERNATIONAL, SHIPPING_INTERNATIONAL_EXPEDITED))
+  .then(() => populateWorksheet(
+    workbook,
+    SHEET_DOMESTIC_EXPEDITED_RATES,
+    LOCALE_DOMESTIC, SHIPPING_EXPEDITED,
+  ))
+  .then(() => populateWorksheet(
+    workbook,
+    SHEET_DOMESTIC_NEXT_DAY_RATES,
+    LOCALE_DOMESTIC,
+    SHIPPING_NEXT_DAY,
+  ))
+  .then(() => populateWorksheet(
+    workbook,
+    SHEET_INTERNATIONAL_ECONOMIC_RATES,
+    LOCALE_INTERNATIONAL,
+    SHIPPING_INTERNATIONAL_ECONOMY,
+  ))
+  .then(() => populateWorksheet(
+    workbook,
+    SHEET_INTERNATIONAL_EXPEDITED_RATES,
+    LOCALE_INTERNATIONAL,
+    SHIPPING_INTERNATIONAL_EXPEDITED,
+  ))
   .then(() => workbook.xlsx.writeFile('result.xlsx'))
   .then(() => connection.close());

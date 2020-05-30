@@ -11,8 +11,8 @@ async function migrate() {
     host: 'exporter-mysql',
     user: 'code',
     password: 'password',
-    database: 'code_challenge'
-  })
+    database: 'code_challenge',
+  });
 
   const query = promisify(connection.query).bind(connection);
 
@@ -20,8 +20,8 @@ async function migrate() {
     These were separated out in to separate statements since I was getting errors when I would
     try and execute all of the statements in a single `query`
 
-    Given more time, I would try to figure out how to execute all of the drop/create/delete statements
-    in a single request to the database
+    Given more time, I would try to figure out how to execute all of the
+    drop/create/delete statements in a single request to the database
    */
   const dropResponse = await query(drop);
   console.log('Drop Response: ', dropResponse);
