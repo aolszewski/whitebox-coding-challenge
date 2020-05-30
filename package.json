@@ -6,6 +6,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-polyfill": "^6.26.0",
+    "exceljs": "^3.9.0",
     "mysql2": "^2.1.0"
   },
   "devDependencies": {
@@ -17,7 +18,7 @@
     "eslint-plugin-json": "^2.1.1"
   },
   "scripts": {
-    "export": "",
+    "export": "node --require babel-core/register exporter.js",
     "import": "node --require babel-core/register importer.js"
   }
 }
